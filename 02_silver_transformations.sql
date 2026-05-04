@@ -32,11 +32,11 @@ SELECT
     END AS cst_gndr,
     cst_create_date
 FROM (
-    -- This subquery assigns a rank to duplicates, prioritizing the newest date
+    
     SELECT *,
            ROW_NUMBER() OVER(PARTITION BY cst_id ORDER BY cst_create_date DESC) as row_num
     FROM bronze.crm_cust_info
-) deduplicated_data --(you must give the subquery an Alias!)
+) deduplicated_data
 WHERE row_num = 1;
 
 
@@ -75,7 +75,7 @@ SELECT
     prd_start_dt,
     prd_end_dt
 FROM (
-    -- The subquery generates the ranking first
+    
     SELECT *,
            ROW_NUMBER() OVER (PARTITION BY prd_id ORDER BY prd_start_dt DESC) AS row_num
     FROM bronze.crm_prd_info
@@ -130,9 +130,9 @@ SELECT
     
     -- Recalculate Sales if missing, negative, or math is wrong
     CASE 
-        WHEN sls_sales IS NULL OR sls_sales <= 0 OR sls_sales != (sls_quantity * ABS(sls_price)) -- ABS = absolute value, turns neg into pos
+        WHEN sls_sales IS NULL OR sls_sales <= 0 OR sls_sales != (sls_quantity * ABS(sls_price))
             THEN sls_quantity * ABS(sls_price)
-        ELSE sls_sales -- if there are no issues, leave the column data as is
+        ELSE sls_sales 
     END AS sls_sales,
     
     sls_quantity,
@@ -168,7 +168,7 @@ SELECT
 	END AS bdate,
 	CASE 
 		WHEN UPPER(TRIM(gen)) LIKE 'M%' THEN 'Male'
-		WHEN UPPER(TRIM(gen)) LIKE 'F%' THEN 'Female' --always remember to (upper trim) when cleaning 
+		WHEN UPPER(TRIM(gen)) LIKE 'F%' THEN 'Female' 
 		ELSE 'n/a'
 	END AS gen
 FROM bronze.erp_CUST_AZ12;
@@ -220,7 +220,7 @@ SELECT
     CAT, 
     SUBCAT, 
     MAINTENANCE
-FROM bronze.erp_PX_CAT_G1V2; -- when the data is flawless you drop it in silver as is, but you must select the columns
+FROM bronze.erp_PX_CAT_G1V2; -- when the data is flawless you drop it in silver as is
 
 
 
