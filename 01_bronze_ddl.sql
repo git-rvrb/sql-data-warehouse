@@ -2,7 +2,7 @@
 
 CREATE DATABASE data_warehouse;
 
--- create the layers (schemas act like folders inside your database)
+-- create the layers
 
 CREATE SCHEMA bronze;
 CREATE SCHEMA silver;
@@ -23,8 +23,8 @@ CREATE TABLE bronze.crm_cust_info (
     cst_create_date DATE
 );
 
--- load the CSV data (update the file path to wherever you saved the downloaded tutorial data on your computer)
--- only use this if you cannot import the data
+-- load the CSV data
+-- use this if you cannot import the data from inside PG
 
 COPY bronze.crm_cust_info(cst_id, cst_key, cst_firstname, cst_lastname, cst_marital_status, cst_gndr, cst_create_date)FROM 'C:/Users/Aran/Desktop/Aran/Data Warehouse Project/dbc9660c89a3480fa5eb9bae464d6c07/sql-data-warehouse-project/datasets/source_crm/cust_info.csv'
 DELIMITER ','
