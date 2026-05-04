@@ -26,7 +26,7 @@ Integrates data from two source systems (CRM + ERP), cleans and standardises it 
 - **Database:** PostgreSQL
 - **Language:** SQL (DDL + DML only — no external tools)
 - **Pattern:** Medallion Architecture (Bronze → Silver → Gold)
-- **Schema Design:** Star Schema (Kimball methodology)
+- **Schema Design:** Star Schema
 
 ## Project Structure
 
