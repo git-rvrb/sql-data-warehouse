@@ -75,7 +75,6 @@ CREATE TABLE gold.dim_product (
     maintenance     VARCHAR(50),
     start_date      DATE,
     end_date        DATE,
-    is_current      BOOLEAN,              -- SCD Type 2 flag
     dwh_create_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -113,14 +112,14 @@ LEFT JOIN silver.erp_px_cat_g1v2 cat
 DROP TABLE IF EXISTS gold.dim_date;
 
 CREATE TABLE gold.dim_date (
-    date_key        INT PRIMARY KEY,      -- YYYYMMDD integer key
+    date_key        INT PRIMARY KEY,     
     full_date       DATE NOT NULL,
     year            INT,
     quarter         INT,
     month           INT,
     month_name      VARCHAR(20),
     day             INT,
-    day_of_week     INT,                  -- 0 = Sunday
+    day_of_week     INT,             
     day_name        VARCHAR(20),
     is_weekend      BOOLEAN
 );
@@ -179,8 +178,6 @@ SELECT
     s.sls_ord_num   AS order_number,
     c.customer_key  AS customer_key,
     p.product_key   AS product_key,
-
-    -- Date dimension keys (YYYYMMDD integer format)
     TO_CHAR(s.sls_order_dt, 'YYYYMMDD')::INT AS order_date_key,
     CASE WHEN s.sls_ship_dt IS NOT NULL
          THEN TO_CHAR(s.sls_ship_dt, 'YYYYMMDD')::INT
