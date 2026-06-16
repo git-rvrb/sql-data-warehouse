@@ -44,7 +44,7 @@ Joins CRM + ERP silver tables into a denormalized star schema:
 | Table | Type | Description |
 |-------|------|-------------|
 | `dim_customer` | Dimension | CRM customer info + ERP demographics + ERP location |
-| `dim_product` | Dimension | CRM product info + ERP category hierarchy, SCD2 flag |
+| `dim_product` | Dimension | CRM product info + ERP category hierarchy |
 | `dim_date` | Dimension | Generated calendar (year, quarter, month, day, weekend) |
 | `fact_sales` | Fact | Order line items with FK references to all dimensions |
 
